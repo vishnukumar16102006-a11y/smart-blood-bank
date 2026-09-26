@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - Smart Blood Bank</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>🩸 Smart Blood Bank</h2>
+
+        <div>
+            <a href="/">Home</a>
+            <a href="/donor">Donor Registration</a>
+            <a href="/request-blood">Blood Request</a>
+        </div>
+    </nav>
+
+
+    <div class="form-container">
+
+        <h1>🔐 Admin Login</h1>
+
+        <p>
+            Login to manage the Smart Blood Bank
+        </p>
+
+
+        {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+
+            <button type="submit">
+                🔐 Login
+            </button>
+
+        </form>
+
+
+        <br>
+
+        <a href="/">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</body>
+
+</html>
