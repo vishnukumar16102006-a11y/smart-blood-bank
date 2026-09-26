@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Smart Blood Bank Management System</title>
+
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar">
+
+    <div class="navbar-container">
+
+      <!-- Logo -->
+      <a href="/" class="navbar-logo">
+        🩸 Smart Blood Bank
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="navbar-toggle"
+        onclick="toggleMenu()"
+        aria-label="Toggle navigation">
+        &#9776;
+      </button>
+
+      <!-- Navigation Links -->
+      <ul class="navbar-links" id="navLinks">
+
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('donor') }}">
+            Donor Registration
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('request_blood') }}">
+            Blood Request
+          </a>
+        </li>
+
+        <!-- Hospital Registration -->
+        <li>
+          <a href="{{ url_for('hospital') }}">
+            Hospital Registration
+          </a>
+        </li>
+
+        <!-- Hospital Login -->
+        <li>
+          <a href="{{ url_for('hospital_login') }}">
+            Hospital Login
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('admin') }}">
+            Admin Dashboard
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ url_for('login') }}">
+            Login
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </nav>
+
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+
+  <div class="main-content">
+
+
+    <!-- ===================== HERO SECTION ===================== -->
+
+    <section class="hero">
+
+      <div class="hero-content animate-fade-up">
+
+        <h1>
+          Save Lives, Donate Blood ❤️
+        </h1>
+
+        <p>
+          Smart Blood Bank Management System helps hospitals
+          find blood and connect with eligible donors.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="{{ url_for('donor') }}"
+             class="btn btn-primary">
+            Donor Registration
+          </a>
+
+          <a href="{{ url_for('request_blood') }}"
+             class="btn btn-outline">
+            Request Blood
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================== FEATURE CARDS ===================== -->
+
+    <section class="features-section">
+
+      <h2 class="section-title">
+        Our Services
+      </h2>
+
+      <p class="section-subtitle">
+        A complete blood bank management solution
+      </p>
+
+
+      <div class="feature-grid">
+
+
+        <!-- ===================== DONOR REGISTRATION ===================== -->
+
+        <div class="feature-card animate-fade-up">
+
+          <span class="feature-icon">
+            🧑‍🤝‍🧑
+          </span>
+
+          <h3>
+            Donor Registration
+          </h3>
+
+          <p>
+            Register as a blood donor and help save lives
+            in your community.
+          </p>
+
+          <br />
+
+          <a href="{{ url_for('donor') }}"
+             class="btn btn-red btn-sm">
+            Register Now
+          </a>
+
+        </div>
+
+
+        <!-- ===================== BLOOD REQUEST ===================== -->
+
+        <div class="feature-card animate-fade-up">
+
+          <span class="feature-icon">
+            🏥
+          </span>
+
+          <h3>
+            Blood Request
+          </h3>
+
+          <p>
+            Hospitals can request blood units when patients
+            need them most.
+          </p>
+
+          <br />
+
+          <a href="{{ url_for('request_blood') }}"
+             class="btn btn-red btn-sm">
+            Request Blood
+          </a>
+
+        </div>
+
+
+        <!-- ===================== SMART MATCHING ===================== -->
+
+        <div class="feature-card animate-fade-up">
+
+          <span class="feature-icon">
+            🔍
+          </span>
+
+          <h3>
+            Smart Matching
+          </h3>
+
+          <p>
+            Find matching donors quickly by blood group
+            for emergency needs.
+          </p>
+
+          <br />
+
+          <a href="{{ url_for('match_donor') }}"
+             class="btn btn-red btn-sm">
+            Find Donor
+          </a>
+
+        </div>
+
+
+        <!-- ===================== HOSPITAL REGISTRATION ===================== -->
+
+        <div class="feature-card animate-fade-up">
+
+          <span class="feature-icon">
+            🏥
+          </span>
+
+          <h3>
+            Hospital Registration
+          </h3>
+
+          <p>
+            Register hospitals and connect them with
+            the Smart Blood Bank network.
+          </p>
+
+          <br />
+
+          <a href="{{ url_for('hospital') }}"
+             class="btn btn-red btn-sm">
+            Register Hospital
+          </a>
+
+        </div>
+
+
+        <!-- ===================== HOSPITAL LOGIN ===================== -->
+
+        <div class="feature-card animate-fade-up">
+
+          <span class="feature-icon">
+            🔐
+          </span>
+
+          <h3>
+            Hospital Login
+          </h3>
+
+          <p>
+            Registered hospitals can securely login and
+            manage their blood requests.
+          </p>
+
+          <br />
+
+          <a href="{{ url_for('hospital_login') }}"
+             class="btn btn-red btn-sm">
+            Hospital Login
+          </a>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================== INFO STRIP ===================== -->
+
+    <section class="info-strip">
+
+      <div class="info-strip-inner">
+
+
+        <!-- Blood Groups -->
+
+        <div class="info-stat">
+
+          <div class="stat-icon">
+            🩸
+          </div>
+
+          <h4>
+            8 Blood Groups
+          </h4>
+
+          <p>
+            Complete stock management
+          </p>
+
+        </div>
+
+
+        <!-- Hospital Requests -->
+
+        <div class="info-stat">
+
+          <div class="stat-icon">
+            🏥
+          </div>
+
+          <h4>
+            Hospital Requests
+          </h4>
+
+          <p>
+            Real-time blood requests
+          </p>
+
+        </div>
+
+
+        <!-- Donor Network -->
+
+        <div class="info-stat">
+
+          <div class="stat-icon">
+            🧑‍🤝‍🧑
+          </div>
+
+          <h4>
+            Donor Network
+          </h4>
+
+          <p>
+            Connect with donors
+          </p>
+
+        </div>
+
+
+        <!-- Fast Matching -->
+
+        <div class="info-stat">
+
+          <div class="stat-icon">
+            ⚡
+          </div>
+
+          <h4>
+            Fast Matching
+          </h4>
+
+          <p>
+            Find donors instantly
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ===================== FOOTER ===================== -->
+
+  <footer class="footer">
+
+    <p>
+      🩸 Smart Blood Bank Management System
+      &mdash;
+      Final Year B.Sc Computer Science Project
+    </p>
+
+  </footer>
+
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+
+  <script>
+
+    function toggleMenu() {
+
+      var links = document.getElementById("navLinks");
+
+      links.classList.toggle("active");
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>
