@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Hospital Registration - Smart Blood Bank
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ===================== NAVBAR ===================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+
+            <!-- LOGO -->
+
+            <a href="/" class="navbar-logo">
+
+                🩸 Smart Blood Bank
+
+            </a>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                class="navbar-toggle"
+                onclick="toggleMenu()"
+                aria-label="Toggle navigation">
+
+                &#9776;
+
+            </button>
+
+
+            <!-- NAVIGATION LINKS -->
+
+            <ul class="navbar-links" id="navLinks">
+
+
+                <li>
+
+                    <a href="/">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('donor') }}">
+
+                        Donor Registration
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('request_blood') }}">
+
+                        Blood Request
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('hospital') }}">
+
+                        Hospital Registration
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('hospital_login') }}">
+
+                        Hospital Login
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('admin') }}">
+
+                        Admin Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('login') }}">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ===================== HERO ===================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+
+                🏥 Hospital Registration
+
+            </h1>
+
+            <p>
+
+                Register your hospital with the
+                Smart Blood Bank network
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================== REGISTRATION FORM ===================== -->
+
+    <section class="section">
+
+        <div class="form-container">
+
+
+            <h2>
+
+                Register Hospital
+
+            </h2>
+
+
+            <p>
+
+                Enter your hospital details below.
+
+            </p>
+
+
+            <br>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('hospital') }}">
+
+
+
+                <!-- HOSPITAL NAME -->
+
+                <div class="form-group">
+
+                    <label for="hospital_name">
+
+                        Hospital Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospital_name"
+                        name="hospital_name"
+                        placeholder="Enter hospital name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        Hospital Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter hospital email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+
+                        Phone Number
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CITY -->
+
+                <div class="form-group">
+
+                    <label for="city">
+
+                        City
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        placeholder="Enter city"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-group">
+
+                    <label for="address">
+
+                        Hospital Address
+
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="4"
+                        placeholder="Enter complete hospital address"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+
+                        Create Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        minlength="6"
+                        required
+                    >
+
+                    <small>
+
+                        Password must contain at least 6 characters.
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="btn btn-red">
+
+                    🏥 Register Hospital
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- LOGIN LINK -->
+
+            <p style="margin-top: 20px;">
+
+                Already registered?
+
+                <a href="{{ url_for('hospital_login') }}">
+
+                    Hospital Login
+
+                </a>
+
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================== FOOTER ===================== -->
+
+    <footer class="footer">
+
+        <p>
+
+            © 2026 Smart Blood Bank Management System
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- ===================== MOBILE MENU ===================== -->
+
+    <script>
+
+        function toggleMenu() {
+
+            const links =
+                document.getElementById("navLinks");
+
+            links.classList.toggle("active");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
