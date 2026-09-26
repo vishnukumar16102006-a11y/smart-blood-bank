@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        Manage Blood Stock - Smart Blood Bank
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+
+
+    <!-- ===================== NAVBAR ===================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="/" class="navbar-logo">
+                🩸 Smart Blood Bank
+            </a>
+
+            <button
+                class="navbar-toggle"
+                onclick="toggleMenu()"
+                aria-label="Toggle navigation">
+
+                &#9776;
+
+            </button>
+
+
+            <ul class="navbar-links" id="navLinks">
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('donor') }}">
+                        Donor Registration
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('request_blood') }}">
+                        Blood Request
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin') }}">
+                        Admin Dashboard
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+
+
+    <div class="main-content">
+
+
+        <!-- ===================== PAGE HEADER ===================== -->
+
+        <div class="page-header">
+
+            <h1>
+                🩸 Manage Blood Stock
+            </h1>
+
+            <p>
+                Update available blood units for each blood group
+            </p>
+
+        </div>
+
+
+
+        <div class="page-wrapper-narrow">
+
+
+            <!-- ===================== SUCCESS MESSAGE ===================== -->
+
+            {% if success %}
+
+            <div class="alert alert-success animate-fade">
+
+                {{ success }}
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ===================== ERROR MESSAGE ===================== -->
+
+            {% if error %}
+
+            <div class="alert alert-error animate-fade">
+
+                {{ error }}
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ===================== UPDATE STOCK FORM ===================== -->
+
+            <div class="card animate-fade-up">
+
+                <h2 class="card-title">
+                    Update Blood Stock
+                </h2>
+
+
+                <form
+                    action="{{ url_for('update_stock') }}"
+                    method="POST">
+
+
+                    <div class="form-row">
+
+
+                        <!-- BLOOD GROUP -->
+
+                        <div class="form-group">
+
+                            <label for="blood_group">
+                                Blood Group
+                            </label>
+
+
+                            <select
+                                id="blood_group"
+                                name="blood_group"
+                                required>
+
+                                <option value="">
+                                    -- Select Blood Group --
+                                </option>
+
+                                <option value="A+">
+                                    A+
+                                </option>
+
+                                <option value="A-">
+                                    A-
+                                </option>
+
+                                <option value="B+">
+                                    B+
+                                </option>
+
+                                <option value="B-">
+                                    B-
+                                </option>
+
+                                <option value="AB+">
+                                    AB+
+                                </option>
+
+                                <option value="AB-">
+                                    AB-
+                                </option>
+
+                                <option value="O+">
+                                    O+
+                                </option>
+
+                                <option value="O-">
+                                    O-
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- AVAILABLE UNITS -->
+
+                        <div class="form-group">
+
+                            <label for="units">
+                                Available Units
+                            </label>
+
+                            <input
+                                type="number"
+                                id="units"
+                                name="units"
+                                min="0"
+                                placeholder="Enter units"
+                                required />
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- UPDATE BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-red btn-block">
+
+                        Update Stock
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- ===================== CURRENT STOCK TABLE ===================== -->
+
+            <div class="card animate-fade-up">
+
+                <h2 class="card-title">
+                    Current Blood Stock
+                </h2>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Blood Group
+                                </th>
+
+                                <th>
+                                    Available Units
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for s in stock %}
+
+                            <tr>
+
+                                <td>
+                                    {{ s[0] }}
+                                </td>
+
+                                <td>
+                                    {{ s[1] }}
+                                </td>
+
+                                <td>
+
+
+                                    {% if s[1] == 0 %}
+
+                                    <span class="badge badge-error">
+                                        ❌ Out of Stock
+                                    </span>
+
+
+                                    {% elif s[1] <= 2 %}
+
+                                    <span class="badge badge-warning">
+                                        ⚠️ Low Stock
+                                    </span>
+
+
+                                    {% else %}
+
+                                    <span class="badge badge-success">
+                                        ✅ Available
+                                    </span>
+
+                                    {% endif %}
+
+
+                                </td>
+
+                            </tr>
+
+
+                            {% else %}
+
+                            <tr>
+
+                                <td
+                                    colspan="3"
+                                    class="table-empty">
+
+                                    No blood stock data available.
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BACK TO ADMIN -->
+
+            <a
+                href="{{ url_for('admin') }}"
+                class="back-link">
+
+                ← Back to Admin Dashboard
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================== FOOTER ===================== -->
+
+    <footer class="footer">
+
+        <p>
+            🩸 Smart Blood Bank Management System
+            &mdash;
+            Final Year B.Sc Computer Science Project
+        </p>
+
+    </footer>
+
+
+
+    <!-- ===================== MOBILE MENU ===================== -->
+
+    <script>
+
+        function toggleMenu() {
+
+            var links =
+                document.getElementById("navLinks");
+
+            links.classList.toggle("active");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
