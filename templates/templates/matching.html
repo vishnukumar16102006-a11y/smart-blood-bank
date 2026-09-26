@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        Find Matching Donor - Smart Blood Bank
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+
+
+    <!-- ===================== NAVBAR ===================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="/" class="navbar-logo">
+                🩸 Smart Blood Bank
+            </a>
+
+
+            <button
+                class="navbar-toggle"
+                onclick="toggleMenu()"
+                aria-label="Toggle navigation">
+
+                &#9776;
+
+            </button>
+
+
+            <ul class="navbar-links" id="navLinks">
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('donor') }}">
+                        Donor Registration
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('request_blood') }}">
+                        Blood Request
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin') }}">
+                        Admin Dashboard
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+
+
+    <div class="main-content">
+
+
+        <!-- ===================== PAGE HEADER ===================== -->
+
+        <div class="page-header">
+
+            <h1>
+                🔍 Smart Donor Matching
+            </h1>
+
+            <p>
+                Find matching donors by blood group
+            </p>
+
+        </div>
+
+
+
+        <div class="page-wrapper">
+
+
+            <!-- ===================== ERROR MESSAGE ===================== -->
+
+            {% if error %}
+
+            <div class="alert alert-error animate-fade">
+
+                {{ error }}
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ===================== SEARCH FORM ===================== -->
+
+            <div class="card animate-fade-up">
+
+                <h2 class="card-title">
+                    Search Donors by Blood Group
+                </h2>
+
+
+                <form
+                    action="{{ url_for('match_donor') }}"
+                    method="POST">
+
+
+                    <div class="form-row">
+
+
+                        <!-- BLOOD GROUP -->
+
+                        <div class="form-group">
+
+                            <label for="blood_group">
+                                Select Blood Group
+                            </label>
+
+
+                            <select
+                                id="blood_group"
+                                name="blood_group"
+                                required>
+
+                                <option value="">
+                                    -- Select Blood Group --
+                                </option>
+
+
+                                <option
+                                    value="A+"
+                                    {% if selected_group == "A+" %}
+                                    selected
+                                    {% endif %}>
+
+                                    A+
+
+                                </option>
+
+
+                                <option
+                                    value="A-"
+                                    {% if selected_group == "A-" %}
+                                    selected
+                                    {% endif %}>
+
+                                    A-
+
+                                </option>
+
+
+                                <option
+                                    value="B+"
+                                    {% if selected_group == "B+" %}
+                                    selected
+                                    {% endif %}>
+
+                                    B+
+
+                                </option>
+
+
+                                <option
+                                    value="B-"
+                                    {% if selected_group == "B-" %}
+                                    selected
+                                    {% endif %}>
+
+                                    B-
+
+                                </option>
+
+
+                                <option
+                                    value="AB+"
+                                    {% if selected_group == "AB+" %}
+                                    selected
+                                    {% endif %}>
+
+                                    AB+
+
+                                </option>
+
+
+                                <option
+                                    value="AB-"
+                                    {% if selected_group == "AB-" %}
+                                    selected
+                                    {% endif %}>
+
+                                    AB-
+
+                                </option>
+
+
+                                <option
+                                    value="O+"
+                                    {% if selected_group == "O+" %}
+                                    selected
+                                    {% endif %}>
+
+                                    O+
+
+                                </option>
+
+
+                                <option
+                                    value="O-"
+                                    {% if selected_group == "O-" %}
+                                    selected
+                                    {% endif %}>
+
+                                    O-
+
+                                </option>
+
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- FIND DONOR BUTTON -->
+
+                        <div class="form-group">
+
+                            <label>
+                                &nbsp;
+                            </label>
+
+                            <button
+                                type="submit"
+                                class="btn btn-red btn-block">
+
+                                🔍 Find Matching Donor
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- ===================== MATCHING DONORS ===================== -->
+
+            {% if searched %}
+
+            <div class="card animate-fade-up">
+
+
+                <h2 class="card-title">
+
+                    Matching Donors
+
+                    {% if selected_group %}
+
+                    &mdash;
+
+                    {{ selected_group }}
+
+                    {% endif %}
+
+                </h2>
+
+
+
+                {% if matched_donors|length > 0 %}
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Name
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Phone
+                                </th>
+
+                                <th>
+                                    Blood Group
+                                </th>
+
+                                <th>
+                                    City
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for d in matched_donors %}
+
+                            <tr>
+
+                                <td>
+                                    {{ d[0] }}
+                                </td>
+
+                                <td>
+                                    {{ d[1] }}
+                                </td>
+
+                                <td>
+                                    {{ d[2] }}
+                                </td>
+
+                                <td>
+                                    {{ d[3] }}
+                                </td>
+
+                                <td>
+                                    {{ d[4] }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                {% else %}
+
+
+                <div class="alert alert-warning animate-fade">
+
+                    ❌ No matching donor found.
+
+                </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- ===================== BACK ===================== -->
+
+            <a
+                href="{{ url_for('admin') }}"
+                class="back-link">
+
+                ← Back to Admin Dashboard
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================== FOOTER ===================== -->
+
+    <footer class="footer">
+
+        <p>
+
+            🩸 Smart Blood Bank Management System
+
+            &mdash;
+
+            Final Year B.Sc Computer Science Project
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- ===================== MOBILE MENU ===================== -->
+
+    <script>
+
+        function toggleMenu() {
+
+            var links =
+                document.getElementById("navLinks");
+
+            links.classList.toggle("active");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
