@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Login - Smart Blood Bank</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+
+            <div class="navbar-logo">
+                🩸 Smart Blood Bank
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="navbar-toggle" onclick="toggleMenu()">
+                ☰
+            </button>
+
+            <ul class="navbar-links" id="navbarLinks">
+
+                <li>
+                    <a href="/">Home</a>
+                </li>
+
+                <li>
+                    <a href="/donor">Donor Registration</a>
+                </li>
+
+                <li>
+                    <a href="/request-blood">Blood Request</a>
+                </li>
+
+                <li>
+                    <a href="/hospital">Hospital Registration</a>
+                </li>
+
+                <li>
+                    <a href="/hospital-login" class="active">
+                        Hospital Login
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/login">Admin Login</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>🏥 Hospital Login</h1>
+
+            <p>
+                Login to access your hospital dashboard
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOGIN SECTION -->
+    <section class="section">
+
+        <div class="form-container">
+
+            <h2>Hospital Login</h2>
+
+            <!-- Error Message -->
+            {% if error %}
+
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- LOGIN FORM -->
+            <form method="POST"
+                  action="/hospital-login">
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Hospital Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter hospital email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+                <button type="submit"
+                        class="btn btn-red">
+                    🔐 Login
+                </button>
+
+            </form>
+
+
+            <!-- REGISTER LINK -->
+            <p class="form-footer-text">
+
+                Don't have a hospital account?
+
+                <a href="/hospital">
+                    Register Hospital
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <p>
+            © 2026 Smart Blood Bank Management System
+        </p>
+
+    </footer>
+
+
+    <!-- MOBILE MENU -->
+    <script>
+
+        function toggleMenu() {
+
+            const menu = document.getElementById("navbarLinks");
+
+            menu.classList.toggle("show");
+
+        }
+
+    </script>
+
+</body>
+</html>
