@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Smart Blood Bank</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+
+        <!-- LOGO -->
+
+        <a href="/" class="navbar-logo">
+
+            🩸 Smart Blood Bank
+
+        </a>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="navbar-toggle"
+            onclick="toggleMenu()"
+            aria-label="Toggle navigation">
+
+            &#9776;
+
+        </button>
+
+
+        <!-- NAVIGATION -->
+
+        <ul class="navbar-links" id="navLinks">
+
+
+            <li>
+
+                <a href="/">
+                    Home
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('donor') }}">
+                    Donor Registration
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('request_blood') }}">
+                    Blood Request
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('stock') }}">
+                    Blood Stock
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('match_donor') }}">
+                    Find Donor
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('hospital') }}">
+                    Hospital Registration
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            🛡️ Admin Dashboard
+        </h1>
+
+        <p>
+            Manage donors, hospitals, blood requests and blood stock.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<div class="container">
+
+
+    <!-- =================================================
+         SUMMARY CARDS
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            Dashboard Overview
+        </h2>
+
+
+        <div class="feature-grid">
+
+
+            <!-- TOTAL DONORS -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    👥
+                </span>
+
+                <h3>
+                    Total Donors
+                </h3>
+
+                <p class="dashboard-number">
+                    {{ total_donors }}
+                </p>
+
+            </div>
+
+
+
+            <!-- TOTAL REQUESTS -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🩸
+                </span>
+
+                <h3>
+                    Total Blood Requests
+                </h3>
+
+                <p class="dashboard-number">
+                    {{ total_requests }}
+                </p>
+
+            </div>
+
+
+
+            <!-- BLOOD GROUPS -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🧪
+                </span>
+
+                <h3>
+                    Blood Groups
+                </h3>
+
+                <p class="dashboard-number">
+                    8
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+
+        <div class="feature-grid">
+
+
+            <!-- REGISTER DONOR -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🧑‍⚕️
+                </span>
+
+                <h3>
+                    Register Donor
+                </h3>
+
+                <p>
+                    Add a new blood donor to the system.
+                </p>
+
+                <br>
+
+                <a href="{{ url_for('donor') }}"
+                   class="btn btn-red btn-sm">
+
+                    Register Donor
+
+                </a>
+
+            </div>
+
+
+
+            <!-- BLOOD REQUEST -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🏥
+                </span>
+
+                <h3>
+                    Blood Request
+                </h3>
+
+                <p>
+                    Create a blood request for a hospital.
+                </p>
+
+                <br>
+
+                <a href="{{ url_for('request_blood') }}"
+                   class="btn btn-red btn-sm">
+
+                    Request Blood
+
+                </a>
+
+            </div>
+
+
+
+            <!-- MANAGE STOCK -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🩸
+                </span>
+
+                <h3>
+                    Manage Stock
+                </h3>
+
+                <p>
+                    View and update available blood stock.
+                </p>
+
+                <br>
+
+                <a href="{{ url_for('stock') }}"
+                   class="btn btn-red btn-sm">
+
+                    Manage Stock
+
+                </a>
+
+            </div>
+
+
+
+            <!-- FIND DONOR -->
+
+            <div class="feature-card">
+
+                <span class="feature-icon">
+                    🔍
+                </span>
+
+                <h3>
+                    Find Donor
+                </h3>
+
+                <p>
+                    Find donors according to blood group.
+                </p>
+
+                <br>
+
+                <a href="{{ url_for('match_donor') }}"
+                   class="btn btn-red btn-sm">
+
+                    Find Donor
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         BLOOD STOCK
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            🩸 Blood Stock
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Blood Group
+                        </th>
+
+                        <th>
+                            Available Units
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for s in stock %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                {{ s[0] }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            {{ s[1] }}
+                        </td>
+
+
+                        <td>
+
+                            {% if s[1] == 0 %}
+
+                            <span class="status rejected">
+                                Out of Stock
+                            </span>
+
+                            {% elif s[1] <= 2 %}
+
+                            <span class="status pending">
+                                Low Stock
+                            </span>
+
+                            {% else %}
+
+                            <span class="status approved">
+                                Available
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="3">
+                            No blood stock available.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         BLOOD REQUESTS
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            🏥 Blood Requests
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>
+                            Hospital Name
+                        </th>
+
+                        <th>
+                            Phone
+                        </th>
+
+                        <th>
+                            Blood Group
+                        </th>
+
+                        <th>
+                            Units
+                        </th>
+
+                        <th>
+                            Request Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for req in requests_list %}
+
+                    <tr>
+
+
+                        <!-- ID -->
+
+                        <td>
+                            {{ req[0] }}
+                        </td>
+
+
+                        <!-- HOSPITAL -->
+
+                        <td>
+                            {{ req[1] }}
+                        </td>
+
+
+                        <!-- PHONE -->
+
+                        <td>
+                            {{ req[2] }}
+                        </td>
+
+
+                        <!-- BLOOD GROUP -->
+
+                        <td>
+
+                            <strong>
+                                {{ req[3] }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- UNITS -->
+
+                        <td>
+                            {{ req[4] }}
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+                            {{ req[5] }}
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if req[6] == "Pending" %}
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+
+                            {% elif req[6] == "Approved" %}
+
+                            <span class="status approved">
+                                Approved
+                            </span>
+
+                            {% elif req[6] == "Rejected" %}
+
+                            <span class="status rejected">
+                                Rejected
+                            </span>
+
+                            {% elif req[6] == "Completed" %}
+
+                            <span class="status approved">
+                                Completed
+                            </span>
+
+                            {% else %}
+
+                            <span class="status">
+                                {{ req[6] }}
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            {% if req[6] == "Pending" %}
+
+                            <div class="action-buttons">
+
+
+                                <!-- APPROVE -->
+
+                                <a
+                                    href="{{ url_for('approve_request', request_id=req[0]) }}"
+                                    class="btn btn-green btn-sm">
+
+                                    ✅ Approve
+
+                                </a>
+
+
+                                <!-- REJECT -->
+
+                                <a
+                                    href="{{ url_for('reject_request', request_id=req[0]) }}"
+                                    class="btn btn-red btn-sm"
+                                    onclick="return confirm('Are you sure you want to reject this blood request?');">
+
+                                    ❌ Reject
+
+                                </a>
+
+
+                            </div>
+
+
+                            {% elif req[6] == "Approved" %}
+
+                            <span class="status approved">
+
+                                ✅ Approved
+
+                            </span>
+
+
+                            {% elif req[6] == "Rejected" %}
+
+                            <span class="status rejected">
+
+                                ❌ Rejected
+
+                            </span>
+
+
+                            {% elif req[6] == "Completed" %}
+
+                            <span class="status approved">
+
+                                ✅ Completed
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="8">
+
+                            No blood requests available.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         DONORS
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            👥 Registered Donors
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Blood Group</th>
+
+                        <th>City</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for donor in donors %}
+
+                    <tr>
+
+                        <td>
+                            {{ donor[0] }}
+                        </td>
+
+                        <td>
+                            {{ donor[1] }}
+                        </td>
+
+                        <td>
+                            {{ donor[2] }}
+                        </td>
+
+                        <td>
+                            {{ donor[3] }}
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ donor[4] }}
+                            </strong>
+
+                        </td>
+
+                        <td>
+                            {{ donor[5] }}
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            No donors registered yet.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         HOSPITALS
+    ================================================== -->
+
+    <section class="section">
+
+        <h2>
+            🏥 Registered Hospitals
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Hospital Name
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Phone
+                        </th>
+
+                        <th>
+                            City
+                        </th>
+
+                        <th>
+                            Address
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for hospital in hospitals %}
+
+                    <tr>
+
+                        <td>
+                            {{ hospital[0] }}
+                        </td>
+
+                        <td>
+                            {{ hospital[1] }}
+                        </td>
+
+                        <td>
+                            {{ hospital[2] }}
+                        </td>
+
+                        <td>
+                            {{ hospital[3] }}
+                        </td>
+
+                        <td>
+                            {{ hospital[4] }}
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="5">
+
+                            No hospitals registered yet.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 Smart Blood Bank Management System
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     EXTRA CSS
+===================================================== -->
+
+<style>
+
+    .dashboard-number {
+
+        font-size: 32px;
+
+        font-weight: bold;
+
+        margin-top: 10px;
+
+    }
+
+
+    .table-container {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        margin-top: 20px;
+
+    }
+
+
+    table {
+
+        width: 100%;
+
+        border-collapse: collapse;
+
+        min-width: 800px;
+
+    }
+
+
+    th,
+    td {
+
+        padding: 14px;
+
+        text-align: left;
+
+        border-bottom: 1px solid #ddd;
+
+    }
+
+
+    th {
+
+        font-weight: bold;
+
+    }
+
+
+    .status {
+
+        display: inline-block;
+
+        padding: 6px 12px;
+
+        border-radius: 20px;
+
+        font-size: 13px;
+
+        font-weight: bold;
+
+    }
+
+
+    .status.pending {
+
+        background: #fff3cd;
+
+        color: #856404;
+
+    }
+
+
+    .status.approved {
+
+        background: #d4edda;
+
+        color: #155724;
+
+    }
+
+
+    .status.rejected {
+
+        background: #f8d7da;
+
+        color: #721c24;
+
+    }
+
+
+    .action-buttons {
+
+        display: flex;
+
+        gap: 8px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .btn-green {
+
+        background: #198754;
+
+        color: white;
+
+    }
+
+
+    .btn-green:hover {
+
+        background: #146c43;
+
+    }
+
+
+    .btn-red {
+
+        background: #dc3545;
+
+        color: white;
+
+    }
+
+
+    .btn-red:hover {
+
+        background: #bb2d3b;
+
+    }
+
+
+    .btn-sm {
+
+        padding: 8px 12px;
+
+        font-size: 13px;
+
+        text-decoration: none;
+
+        border-radius: 6px;
+
+        display: inline-block;
+
+    }
+
+</style>
+
+
+
+<!-- =====================================================
+     MOBILE MENU SCRIPT
+===================================================== -->
+
+<script>
+
+    function toggleMenu() {
+
+        const links =
+            document.getElementById("navLinks");
+
+        links.classList.toggle("active");
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
