@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request Approved - Smart Blood Bank</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="navbar-logo">🩸 Smart Blood Bank</a>
+      <button class="navbar-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('donor') }}">Donor Registration</a></li>
+        <li><a href="{{ url_for('request_blood') }}">Blood Request</a></li>
+        <li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="page-wrapper-narrow">
+
+      <!-- Success message -->
+      {% if success %}
+        <div class="card center-message animate-fade-up">
+          <h2>{{ success }}</h2>
+          <p>Blood request #{{ request_id }} has been approved.</p>
+          <a href="{{ url_for('admin') }}" class="btn btn-red">← Back to Admin Dashboard</a>
+        </div>
+      {% endif %}
+
+      <!-- Error message -->
+      {% if error %}
+        <div class="card center-message animate-fade-up">
+          <h2>{{ error }}</h2>
+          <p>There was a problem approving blood request #{{ request_id }}.</p>
+          <a href="{{ url_for('admin') }}" class="btn btn-red">← Back to Admin Dashboard</a>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>🩸 Smart Blood Bank Management System &mdash; Final Year B.Sc Computer Science Project</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      var links = document.getElementById("navLinks");
+      links.classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
